@@ -1,0 +1,9 @@
+<p>email: <span><%= link_to @user.email, user_path(@user.id) %></span></p>
+
+<p>コメント内容: <span><%= @comment.body %></span></p>
+
+<% if current_user.id == @comment.user.id %>
+  <p><%= link_to "コメントを編集", edit_tweet_comment_path(@tweet.id,@comment.id) %></p>
+
+  <p><%= link_to "コメントを削除", tweet_comment_path(@tweet.id,@comment.id), method: :delete %></p>
+<% end %>

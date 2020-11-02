@@ -1,0 +1,26 @@
+<h1>Tweets#show</h1>
+<p>Find me in app/views/tweets/show.html.erb</p>
+
+<p><span>email: </span><%= @user.email %></p>
+<p><span>ツイート内容: </span><%= @tweet.body %></p>
+
+<% if @tweet.user == current_user %>
+  <%= link_to "ツイートを削除", tweet_path(@tweet.id), method: :delete %>
+<% end %>
+
+<%= form_with model: ([@tweet, @comment]) do |f| %>
+  <p>
+    <%= f.label :body,"コメントを入力:" %>
+    <%= f.text_field :body %>
+  </p>
+  <%= f.submit %>
+<% end %>
+
+<h4>コメント一覧↓</h4>
+<% @comments.each do |comment| %>
+  <hr>
+  <p><span>email: </span><%=link_to comment.user.email, user_path(comment.user.id) %></p>
+  <p><span>コメント内容: </span><%= link_to comment.body, tweet_comment_path(@tweet.id, comment.id) %></p>
+<% end %>
+
+<hr>
